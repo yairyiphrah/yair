@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Cube Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #87CEEB; /* צבע רקע כמו שמיים */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        canvas {
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const cubeSize = 40;
+        let cubeX, cubeY;
+        const gravity = 0.2; 
+        const lift = -4.2;  
+        const maxFallSpeed = 5; 
+        let velocityY = 0;
+        let isJumping = false;
+        let jumpCooldown = false;
+        const pipeWidth = 60;
+        const pipeGap = 300;
+        let pipes = [];
+        let frame = 0;
+        let score = 0;  // מספר העמודים שעברת
+
+        // Fetch selected image from localStorage (or use default)
+        const selectedImage = localStorage.getItem('selectedImage') || '1.png';
+
+        // Initialize canvas size and game
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            cubeX = canvas.width / 4 - cubeSize / 2;
+            cubeY = canvas.height / 2 - cubeSize / 2;
+            velocityY = 0;
+            pipes = [];
+            frame = 0;
+            score = 0;  // אתחול הציון
+            createPipe();
+        }
+
+        // Load cube image
+        const cubeImage = new Image();
+        cubeImage.src = selectedImage;
+        cubeImage.onload = () => {
+            init();
+            setInterval(update, 20);
+        };
+
+        function jump() {
+            if (!jumpCooldown) {
+                isJumping = true;
+                jumpCooldown = true;
+                setTimeout(() => {
+                    jumpCooldown = false; 
+                }, 250); // מניעת קפיצה כפולה בפרק זמן קצר
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.code === 'Space') {
+                jump();
+            }
+        });
+
+        document.addEventListener('touchstart', jump);
+        document.addEventListener('mousedown', jump);
+
+        function createPipe() {
+            const minHeight = 50;
+            const maxHeight = canvas.height - pipeGap - minHeight;
+            const height = Math.random() * (maxHeight - minHeight) + minHeight;
+            pipes.push({
+                x: canvas.width,
+                y: height,
+                width: pipeWidth
+            });
+        }
+
+        function update() {
+            if (isJumping) {
+                velocityY = lift;
+                isJumping = false;
+            } else {
+                velocityY += gravity;
+            }
+
+            if (velocityY > maxFallSpeed) {
+                velocityY = maxFallSpeed;
+            }
+
+            cubeY += velocityY;
+
+            if (cubeY < 0) {
+                cubeY = 0;
+                velocityY = 0;
+            }
+            if (cubeY > canvas.height - cubeSize) {
+                cubeY = canvas.height - cubeSize;
+                velocityY = 0;
+            }
+
+            frame++;
+            if (frame % 90 === 0) {
+                createPipe();
+            }
+            pipes.forEach(pipe => {
+                pipe.x -= 2;
+            });
+            pipes = pipes.filter(pipe => pipe.x + pipe.width > 0);
+
+            // בדיקת מעבר צינור ועדכון הציון
+            pipes.forEach(pipe => {
+                if (pipe.x + pipe.width < cubeX && !pipe.passed) {
+                    score++;
+                    pipe.passed = true;  // מסמן שהקוביה עברה את הצינור הזה
+                }
+            });
+
+            for (let pipe of pipes) {
+                if (cubeX + cubeSize > pipe.x &&
+                    cubeX < pipe.x + pipe.width &&
+                    (cubeY < pipe.y || cubeY + cubeSize > pipe.y + pipeGap)) {
+                    alert('נפסלת יא מעפן');
+                    init();
+                    return;
+                }
+            }
+
+            draw();
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // ציור הקוביה שנבחרה מהדף הראשי
+            ctx.drawImage(cubeImage, cubeX, cubeY, cubeSize, cubeSize);
+
+            // ציור הצינורות
+            ctx.fillStyle = '#228B22';
+            pipes.forEach(pipe => {
+                ctx.fillRect(pipe.x, 0, pipe.width, pipe.y);
+                ctx.fillRect(pipe.x, pipe.y + pipeGap, pipe.width, canvas.height - pipe.y - pipeGap);
+            });
+
+            // ציור הציון
+            ctx.font = '30px Arial';
+            ctx.fillStyle = 'blue';  // צבע יפה לציון, ניתן לשנות
+            ctx.fillText('Score: ' + score, 10, 50);  // הצגת הציון בפינה העליונה
+        }
+
+        window.addEventListener('resize', init);
+    </script>
+</body>
+</html>

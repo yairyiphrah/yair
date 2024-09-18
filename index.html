@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Image for Flappy Cube</title>
+    <style>
+        body {
+            background-color: #2f2f2f; /* צבע רקע שחור-אפור */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;  /* ארגון התמונות בשורות */
+            justify-content: center;
+            padding: 20px;
+            width: 100%;  /* למלא את הרוחב */
+        }
+        .container h1 {
+            width: 100%;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: white;  /* צבע טקסט לבן */
+            text-align: center;
+        }
+        .image-option {
+            display: inline-block;
+            margin: 15px;
+            cursor: pointer;
+        }
+        .image-option img {
+            width: 150px; /* גודל התמונות */
+            height: 150px;
+            border: 2px solid #fff; /* גבול לבן */
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .image-option img:hover {
+            transform: scale(1.1); /* אפקט ריחוף */
+            border-color: #f0f0f0;  /* שינוי צבע הגבול בריחוף */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>בחר שחקן למשחק</h1>
+        <!-- יצירת 10 תמונות לבחירה -->
+        <div class="image-option" onclick="selectImage('1.png')">
+            <img src="1.png" alt="image 2">
+            <p style="color: white; text-align: center;">החתיך</p>
+        </div>
+        <div class="image-option" onclick="selectImage('2.png')">
+            <img src="2.png" alt="Image 2">
+            <p style="color: white; text-align: center;">בעל הזולה</p>
+        </div>
+        <div class="image-option" onclick="selectImage('3.png')">
+            <img src="3.png" alt="Image 3">
+            <p style="color: white; text-align: center;">ששש זה לא מצחיק</p>
+        </div>
+        <div class="image-option" onclick="selectImage('4.png')">
+            <img src="4.png" alt="Image 4">
+            <p style="color: white; text-align: center;">פיטר פן</p>
+        </div>
+        <div class="image-option" onclick="selectImage('5.png')">
+            <img src="5.png" alt="Image 5">
+            <p style="color: white; text-align: center;">הייוש</p>
+        </div>
+        <div class="image-option" onclick="selectImage('6.png')">
+            <img src="6.png" alt="Image 6">
+            <p style="color: white; text-align: center;">16</p>
+        </div>
+        <div class="image-option" onclick="selectImage('7.png')">
+            <img src="7.png" alt="Image 7">
+            <p style="color: white; text-align: center;">מה אחי אני סגן הזולה</p>
+        </div>
+        <div class="image-option" onclick="selectImage('8.png')">
+            <img src="8.png" alt="Image 8">
+            <p style="color: white; text-align: center;">חחחחח</p>
+        </div>
+        <div class="image-option" onclick="selectImage('9.png')">
+            <img src="9.png" alt="Image 9">
+            <p style="color: white; text-align: center;">מורינו רבינו</p>
+        </div>
+        <div class="image-option" onclick="selectImage('10.png')">
+            <img src="10.png" alt="Image 10">
+            <p style="color: white; text-align: center;">מה ישך</p>
+        </div>
+    </div>
+
+    <script>
+        function selectImage(imageName) {
+            localStorage.setItem('selectedImage', imageName); // שמירת שם התמונה
+            window.location.href = 'game.html'; // מעבר למשחק
+        }
+    </script>
+</body>
+</html>
