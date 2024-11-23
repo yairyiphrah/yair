@@ -138,10 +138,16 @@
 
                     if (location === 'IL') {
                         resultText.innerHTML = 'אתה מישראל!';
+                        resultText.style.color = 'green';
+                        resultText.style.fontSize = '50px';
                     } else if (location === 'US') {
                         resultText.innerHTML = 'אתה מארצות הברית!';
+                        resultText.style.color = 'blue';
+                        resultText.style.fontSize = '50px';
                     } else {
                         resultText.innerHTML = `אתה מ${location}!`;
+                        resultText.style.color = 'orange';
+                        resultText.style.fontSize = '50px';
                     }
                 })
                 .catch(error => console.error('שגיאה בהשגת המיקום:', error));
