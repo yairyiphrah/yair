@@ -6,7 +6,7 @@
     <title>השאלון</title>
     <style>
         body {
-            background-image: url('1.png');
+            background-image: url('2.webp');
             background-size: cover;
             font-family: 'Arial', sans-serif;
             color: #FFD700;
@@ -94,6 +94,7 @@
 <body>
 
     <div class="container">
+        <!-- שאלות השאלון -->
         <div class="question-container active" id="q1">
             <h2>מה המאכל האהוב עליך?</h2>
             <div class="choice" onclick="selectAnswer(1, 'פיצה')">פיצה</div>
@@ -101,8 +102,88 @@
             <div class="choice" onclick="selectAnswer(1, 'סושי')">סושי</div>
         </div>
 
+       
+
+        <div class="question-container" id="q3">
+            <h2>מהי תחביבך האהוב?</h2>
+            <div class="choice" onclick="selectAnswer(3, 'ספורט')">ספורט</div>
+            <div class="choice" onclick="selectAnswer(3, 'קריאת ספרים')">קריאת ספרים</div>
+            <div class="choice" onclick="selectAnswer(3, 'משחקי מחשב')">משחקי מחשב</div>
+        </div>
+        
+        <div class="question-container" id="q4">
+             <h2>מה העונה האהובה עליך? 🌞❄️</h2>
+             <div class="choice" onclick="selectAnswer(4, 'קיץ')">קיץ – חום ושמש</div>
+             <div class="choice" onclick="selectAnswer(4, 'חורף')">חורף – גשם ושלג</div>
+             <div class="choice" onclick="selectAnswer(4, 'סתיו')">סתיו – רוח נוחה ושמיים בהירים</div>
+         </div>
+
+         <div class="question-container" id="q5">
+             <h2>איזה סוג של מוזיקה אתה אוהב? 🎶</h2>
+             <div class="choice" onclick="selectAnswer(5, 'רוק')">רוק</div>
+             <div class="choice" onclick="selectAnswer(5, 'פופ')">פופ</div>
+             <div class="choice" onclick="selectAnswer(5, 'אלקטרונית')">אלקטרונית</div>
+         </div>
+
+         <div class="question-container" id="q6">
+             <h2>מה סוג הסרטים שאתה אוהב? 🎬</h2>
+             <div class="choice" onclick="selectAnswer(6, 'קומדיה')">קומדיה</div>
+             <div class="choice" onclick="selectAnswer(6, 'אימה')">אימה</div>
+             <div class="choice" onclick="selectAnswer(6, 'פעולה')">פעולה</div>
+         </div>
+
+         <div class="question-container" id="q7">
+             <h2>איזה חיית מחמד היית רוצה? 🐱🐶</h2>
+             <div class="choice" onclick="selectAnswer(7, 'חתול')">חתול</div>
+             <div class="choice" onclick="selectAnswer(7, 'כלב')">כלב</div>
+             <div class="choice" onclick="selectAnswer(7, 'ארנב')">ארנב</div>
+         </div>
+
+         <div class="question-container" id="q8">
+             <h2>מהי הדרך המועדפת עליך להתנייד? 🚗</h2>
+             <div class="choice" onclick="selectAnswer(8, 'אופניים')">אופניים</div>
+             <div class="choice" onclick="selectAnswer(8, 'מכונית')">מכונית</div>
+             <div class="choice" onclick="selectAnswer(8, 'הליכה')">הליכה</div>
+         </div>
+
+         <div class="question-container" id="q9">
+             <h2>מהי שעת היום האהובה עליך? ⏰</h2>
+             <div class="choice" onclick="selectAnswer(9, 'בוקר')">בוקר</div>
+             <div class="choice" onclick="selectAnswer(9, 'צהריים')">צהריים</div>
+             <div class="choice" onclick="selectAnswer(9, 'ערב')">ערב</div>
+         </div>
+
+         <div class="question-container" id="q10">
+             <h2>איזה סגנון עיצוב אתה מעדיף? 🏠</h2>
+             <div class="choice" onclick="selectAnswer(10, 'מודרני')">מודרני</div>
+             <div class="choice" onclick="selectAnswer(10, 'כפרי')">כפרי</div>
+             <div class="choice" onclick="selectAnswer(10, 'תעשייתי')">תעשייתי</div>
+         </div>
+
+         <div class="question-container" id="q2">
+             <h2>מה הנוף האהוב עליך🤩?</h2>
+             <div class="choice" onclick="selectAnswer(2, 'תל אביב')">הרים מושלגים</div>
+             <div class="choice" onclick="selectAnswer(2, 'חיפה')">ים תכלת עם שמש☀️</div>
+             <div class="choice" onclick="selectAnswer(2, 'ירושלים')">גורדי שחקים</div>
+         </div>
+
+         <div class="question-container" id="q3">
+             <h2>איזה תחום טכנולוגי מעניין אותך? 💻</h2>
+             <div class="choice" onclick="selectAnswer(3, 'בינה מלאכותית')">בינה מלאכותית</div>
+             <div class="choice" onclick="selectAnswer(3, 'מציאות מדומה')">מציאות מדומה</div>
+             <div class="choice" onclick="selectAnswer(3, 'חומרה')">חומרה</div>
+         </div>
+
+         <div class="question-container" id="q1">
+             <h2>מה תחביבים שלך? 🏄‍♂️🎨</h2>
+             <div class="choice" onclick="selectAnswer(1, 'הנדסה')">הנדסה</div>
+             <div class="choice" onclick="selectAnswer(1, 'טיולים')">טיולים</div>
+             <div class="choice" onclick="selectAnswer(1, 'קריאה')">קריאה</div>
+         </div>
+
+        <!-- תוצאה -->
         <div class="result" id="result" style="display: none;">
-            <h2>תודה על השתתפותך!</h2>
+            <h2>המיקום שלך מושפע מעוד גורמים!</h2>
             <p id="countryMessage"></p>
         </div>
     </div>
@@ -132,48 +213,37 @@
         function showResult() {
             let resultContainer = document.getElementById('result');
             resultContainer.style.display = "block";
-            checkIP();
+            getLocation();
         }
 
-        function checkIP() {
-            fetch('https://api.ipify.org?format=json')
+        // פונקציה לקבלת המיקום לפי ה-IP
+        function getLocation() {
+            fetch('https://ipinfo.io/json')
                 .then(response => response.json())
                 .then(data => {
-                    const ip = data.ip;
-                    console.log('ה-IP שלך:', ip);
-                    checkCountry(ip);
-                })
-                .catch(error => {
-                    console.error("שגיאה בקבלת ה-IP: ", error);
-                    alert("שגיאה בקבלת ה-IP");
-                });
-        }
-
-        function checkCountry(ip) {
-            fetch(`https://ipinfo.io/${ip}/json?token=YOUR_API_TOKEN`)
-                .then(response => response.json())
-                .then(data => {
-                    const country = data.country;
+                    const location = data.country;
                     const countryMessage = document.getElementById('countryMessage');
-                    countryMessage.innerHTML = `נראה כי אתה ממדינה ${country}.`;
-                    sendTelegramMessage(ip, country);
+                    if (location === 'IL') {
+                        countryMessage.innerHTML = "אתה מישראל 🇮🇱";
+                    } else {
+                        countryMessage.innerHTML = `נראה כי אתה ממדינה ${location}.`;
+                    }
+                    sendTelegramMessage(data.ip, location);
                 })
                 .catch(error => {
-                    console.error("שגיאה בקבלת מידע על המדינה: ", error);
-                    alert("שגיאה בקבלת מידע על המדינה");
+                    console.log("שגיאה בקבלת המידע על המדינה: ", error);
                 });
         }
 
         function sendTelegramMessage(ip, country) {
-            const telegramAPI = `https://api.telegram.org/bot6796201688:AAEaRoA_O41-U24XQGIX5a4MK4lMyIjjeqg/sendMessage?chat_id=7039130805&text=IP%20${ip}%20השלמת%20את%20השאלון%20ומדובר%20במדינה%20${country}`;
+            const telegramAPI = `https://api.telegram.org/bot6796201688:AAEaRoA_O41-U24XQGIX5a4MK4lMyIjjeqg/sendMessage?chat_id=7039130805&text=IP%20${ip}%20השלמת%20את%20השאלון%20והמיקום%20שלך%20הוא%20${country}`;
             fetch(telegramAPI)
                 .then(response => response.json())
                 .then(data => {
                     console.log("הודעה נשלחה בהצלחה: ", data);
                 })
                 .catch(error => {
-                    console.error("שגיאה בשליחת הודעה לטלגרם: ", error);
-                    alert("שגיאה בשליחת הודעה לטלגרם");
+                    console.log("שגיאה בשליחת הודעה לטלגרם: ", error);
                 });
         }
     </script>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אתגר אותי</title>
+    <style>
+        body {
+            background-image: url('1.webp');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: #e99f17;
+            text-align: center;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: white;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        #options {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ברוך הבא </h1>
+
+    <button id="challenge-button">אתגר אותי</button>
+
+    <div id="options">
+        <button id="via-image">באמצעות תמונה</button>
+        <button id="via-questionnaire">באמצעות שאלון</button>
+    </div>
+
+    <script>
+        // כשהכפתור "אתגר אותי" נלחץ
+        document.getElementById('challenge-button').addEventListener('click', function() {
+            // מחביא את כפתור "אתגר אותי"
+            this.classList.add('hidden');
+            // מראה את שני הכפתורים החדשים
+            document.getElementById('options').style.display = 'flex';
+        });
+
+        // כפתור "באמצעות תמונה"
+        document.getElementById('via-image').addEventListener('click', function() {
+            window.location.href = '1.html'; // מעבר לדף 2.html
+        });
+
+        // כפתור "באמצעות שאלון"
+        document.getElementById('via-questionnaire').addEventListener('click', function() {
+            window.location.href = '2.html'; // מעבר לדף 2.html
+        });
+    </script>
+
+</body>
+</html>
